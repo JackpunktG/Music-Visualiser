@@ -1,4 +1,4 @@
-*Music Visualiser
+#Music Visualiser
 ________________
 Excite your home listening now :)
 ______________
