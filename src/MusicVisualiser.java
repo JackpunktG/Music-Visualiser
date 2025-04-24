@@ -56,20 +56,18 @@ public class MusicVisualiser
 
             while ((readBuffer = audioStream.read(buffer, 0, buffer.length)) != -1) {
 
-                   //byte[] filtered = low1.applyBandPass_Sound(buffer, 400, 5f, sampleRate); //Sample audio
-                   low1.applyBandPass(buffer, 150 , 5, sampleRate);
-                   low2.applyBandPass(buffer, 400, 5, sampleRate);
-                   low3.applyBandPass(buffer, 750, 5, sampleRate);
-                   mid1.applyBandPass(buffer, 1000, 3, sampleRate);
-                   mid2.applyBandPass(buffer, 1500, 3, sampleRate);
-                   mid3.applyBandPass(buffer, 2000, 3, sampleRate);
-                   mid4.applyBandPass(buffer, 2500, 3, sampleRate);
-                   high1.applyBandPass(buffer, 1000, 3.5f, sampleRate);
-                   high2.applyBandPass(buffer, 3000, 2, sampleRate);
-                   high3.applyBandPass(buffer, 10000, 0.5f, sampleRate);
+                low1.dynamicHeight(buffer);
+                low2.dynamicHeight(buffer);
+                low3.dynamicHeight(buffer);
+                mid1.dynamicHeight(buffer);
+                mid2.dynamicHeight(buffer);
+                mid3.dynamicHeight(buffer);
+                mid4.dynamicHeight(buffer);
+                high1.dynamicHeight(buffer);
+                high2.dynamicHeight(buffer);
+                high3.dynamicHeight(buffer);
 
-                   //speakers.write(filtered, 0, readBuffer);       //play filtered audio
-                   speakers.write(buffer, 0, readBuffer);
+                speakers.write(buffer, 0, readBuffer);
 
             }
 
