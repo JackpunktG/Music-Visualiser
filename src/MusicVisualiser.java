@@ -9,35 +9,38 @@ public class MusicVisualiser
 {
     public static void main(String[] args)
     {
+        int frameW = Integer.parseInt(JOptionPane.showInputDialog("Gimme the size ya window - Width: "));
+        int frameH = Integer.parseInt(JOptionPane.showInputDialog("Gimme the size ya window - Height: "));
         JFrame frame = new JFrame("Visualise");         //opening frame
-        frame.setSize(1200, 800);
+        frame.setSize(frameW, frameH);
         frame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(148, 50, 230));
 
-        rectangle low1 = new rectangle(0, 600, 120, 20);     //setting the visuals
-        rectangle low2 = new rectangle(120, 600, 120, 20);
-        rectangle low3 = new rectangle(240, 600, 120, 20);
-        rectangle mid1 = new rectangle(360, 600, 120, 20);
-        rectangle mid2 = new rectangle(480, 600, 120, 20);
-        rectangle mid3 = new rectangle(600, 600, 120, 20);
-        rectangle mid4 = new rectangle(720, 600, 120, 20);
-        rectangle high1= new rectangle(840, 600, 120, 20);
-        rectangle high2= new rectangle(960, 600, 120, 20);
-        rectangle high3= new rectangle(1080, 600, 120, 20);
+        int recTotal = Integer.parseInt(JOptionPane.showInputDialog("Resolution of wave?? Best either to do your Window width for high fidelity\n or between 10 - 100 for blocker graphics\n\n  ride the waves... ;)"));
+        rectangle[] Rectangle = new rectangle[recTotal];   //declaring the rectanlge array with custom amount
 
+        for (int i = 0; i < recTotal; i++) {
+            Rectangle[i] = new rectangle((frame.getWidth() / recTotal) * i, frame.getHeight(), frame.getWidth() / recTotal, 20);  //iterate through initalising them with custom values
+            panel.add(Rectangle[i]);                //adding straight to frame - visuals
+        }
 
-                      //adding the visuals
-        panel.add(low1); panel.add(low2); panel.add(low3);
-        panel.add(mid1); panel.add(mid2); panel.add(mid3); panel.add(mid4);
-        panel.add(high1); panel.add(high2); panel.add(high3);
         frame.add(panel);
         frame.setVisible(true);
+        rectangle.screenheight = frame.getHeight();  //set screen height for wave calculations
+
+        JFileChooser fileChooser = new JFileChooser();                  //file selector
+        int result = fileChooser.showOpenDialog(null);
+        File selectedFile = null;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+
+        }
 
         try {
-            File soundFile = new File("Perhaps it never mattered.wav");
+            File soundFile = new File(selectedFile.getAbsolutePath());
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);      //start streams file
             AudioFormat format = audioStream.getFormat();                               //gets format from audio
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
@@ -56,16 +59,9 @@ public class MusicVisualiser
 
             while ((readBuffer = audioStream.read(buffer, 0, buffer.length)) != -1) {
 
-                low1.dynamicHeight(buffer);
-                low2.dynamicHeight(buffer);
-                low3.dynamicHeight(buffer);
-                mid1.dynamicHeight(buffer);
-                mid2.dynamicHeight(buffer);
-                mid3.dynamicHeight(buffer);
-                mid4.dynamicHeight(buffer);
-                high1.dynamicHeight(buffer);
-                high2.dynamicHeight(buffer);
-                high3.dynamicHeight(buffer);
+                for (int i = 0; i < recTotal; i++) {
+                    Rectangle[i].dynamicHeight(buffer);
+                }
 
                 speakers.write(buffer, 0, readBuffer);
 

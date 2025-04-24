@@ -8,6 +8,8 @@ class rectangle extends JComponent
     int ID = 0;
     static int RectangleAmount = 0;
 
+    static int screenheight;
+
     rectangle(int x, int y, int width, int height)
     {
         this.x = x;
@@ -32,6 +34,7 @@ class rectangle extends JComponent
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
     }
 
+
     void dynamicHeight(byte[] input)
     {
         int bufferLength = input.length / RectangleAmount;
@@ -40,7 +43,7 @@ class rectangle extends JComponent
         for (int i = (this.ID - 1) * bufferLength; i < this.ID * bufferLength; i++) {           //Taking the buffer length of each rectangle and summing it
             sum += input[i];
         }
-        this.height = (sum - (bufferLength * -128)) * (650 - 0) / ((bufferLength * 127) - (bufferLength * -128)) + 0;  //Resizing rectangle based on  number of rectangles and size of screen
+        this.height = (sum - (bufferLength * -128)) * (screenheight - 0) / ((bufferLength * 127) - (bufferLength * -128)) + 0;  //Resizing rectangle based on  number of rectangles and size of screen
         updateBounds();
         repaint();
 
