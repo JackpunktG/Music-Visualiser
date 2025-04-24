@@ -9,27 +9,38 @@ public class MusicVisualiser
 {
     public static void main(String[] args)
     {
+        int frameW = Integer.parseInt(JOptionPane.showInputDialog("Gimme the size ya window - Width: "));
+        int frameH = Integer.parseInt(JOptionPane.showInputDialog("Gimme the size ya window - Height: "));
         JFrame frame = new JFrame("Visualise");         //opening frame
-        frame.setSize(1200, 800);
+        frame.setSize(frameW, frameH);
         frame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(148, 50, 230));
 
-        rectangle low = new rectangle(0, 600, 400, 20);     //setting the visuals
-        rectangle mid = new rectangle(400, 600, 400, 20);
-        rectangle high= new rectangle(800, 600, 400, 20);
+        int recTotal = Integer.parseInt(JOptionPane.showInputDialog("Resolution of wave?? Best either to do your Window width for high fidelity\n or between 10 - 100 for blocker graphics\n\n  ride the waves... ;)"));
+        rectangle[] Rectangle = new rectangle[recTotal];   //declaring the rectanlge array with custom amount
 
-                      //adding the visuals
-        panel.add(low);
-        panel.add(mid);
-        panel.add(high);
+        for (int i = 0; i < recTotal; i++) {
+            Rectangle[i] = new rectangle((frame.getWidth() / recTotal) * i, frame.getHeight(), frame.getWidth() / recTotal, 20);  //iterate through initalising them with custom values
+            panel.add(Rectangle[i]);                //adding straight to frame - visuals
+        }
+
         frame.add(panel);
         frame.setVisible(true);
+        rectangle.screenheight = frame.getHeight();  //set screen height for wave calculations
+
+        JFileChooser fileChooser = new JFileChooser();                  //file selector
+        int result = fileChooser.showOpenDialog(null);
+        File selectedFile = null;
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = fileChooser.getSelectedFile();
+
+        }
 
         try {
-            File soundFile = new File("Perhaps it never mattered.wav");
+            File soundFile = new File(selectedFile.getAbsolutePath());
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);      //start streams file
             AudioFormat format = audioStream.getFormat();                               //gets format from audio
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
@@ -48,13 +59,11 @@ public class MusicVisualiser
 
             while ((readBuffer = audioStream.read(buffer, 0, buffer.length)) != -1) {
 
-                   //byte[] filtered = high.applyBandPass_Sound(buffer, 6000, 0.2f, sampleRate);     //test audio band
-                   low.applyBandPass(buffer, 350, 2, sampleRate);
-                   mid.applyBandPass(buffer, 2500, 1, sampleRate);
-                   high.applyBandPass(buffer, 6000, 0.2f, sampleRate);
+                for (int i = 0; i < recTotal; i++) {
+                    Rectangle[i].dynamicHeight(buffer);
+                }
 
-                   //speakers.write(filtered, 0, readBuffer);                    //play filtered audio
-                   speakers.write(buffer, 0, readBuffer);
+                speakers.write(buffer, 0, readBuffer);
 
             }
 
