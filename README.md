@@ -24,3 +24,6 @@ Resoltion - 1200 max fidelity
 ![Alt text](Screenshots/Screenshot%202025-04-24%20113409.png)
 ![Alt text](Screenshots/Screenshot%202025-04-24%20113421.png)
 ![Alt text](Screenshots/Screenshot%202025-04-24%20113428.png)
+
+_____
+To come: Multiple input methods for live proformances, different visuals for different EQ bands.... Stay locked in!
