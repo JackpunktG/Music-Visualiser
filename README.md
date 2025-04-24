@@ -8,19 +8,19 @@ V1. Framework for the app. Choose-able window size and resolution of waves. < 10
 *Picking a resolution that is perfectly divisable by the window width! 
 __________
 Resolution - 10
-![Alt text](screenshots/Screenshot 2025-04-24 113144.png)
-![Alt text](screenshots/Screenshot 2025-04-24 113204.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113144.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113204.png)
 
 Resolution -20
-![Alt text](screenshots/Screenshot 2025-04-24 113256.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113256.png)
 
 Resolution - 50
-![Alt text](screenshots/Screenshot 2025-04-24 113256.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113256.png)
 
 Resolution - 100
-![Alt text](screenshots/Screenshot 2025-04-24 113333.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113333.png)
 
 Resoltion - 1200 max fidelity 
-![Alt text](screenshots/Screenshot 2025-04-24 113409.png)
-![Alt text](screenshots/Screenshot 2025-04-24 113421.png)
-![Alt text](screenshots/Screenshot 2025-04-24 113428.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113409.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113421.png)
+![Alt text](Screenshots/Screenshot 2025-04-24 113428.png)
