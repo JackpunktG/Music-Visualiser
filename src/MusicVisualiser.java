@@ -12,6 +12,7 @@ public class MusicVisualiser
         int frameW = Integer.parseInt(JOptionPane.showInputDialog("Gimme the size ya window - Width: "));
         int frameH = Integer.parseInt(JOptionPane.showInputDialog("Gimme the size ya window - Height: "));
         JFrame frame = new JFrame("Visualise");         //opening frame
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(frameW, frameH);
         frame.setLocationRelativeTo(null);
 
