@@ -41,7 +41,7 @@ public class MusicVisualiser
 
  */
         //CIRCLE
-        int circleTotal = 25;
+        int circleTotal = 1444;
         Circle[] Circle = new Circle[circleTotal];
         int colAndRow = (int)Math.sqrt(circleTotal);
         System.out.println(colAndRow);
@@ -68,7 +68,7 @@ public class MusicVisualiser
         frame.setVisible(true);
 
         for (int i = 0; i < circleTotal; i++) {
-            Circle[i].updateBounds(colAndRow, colAndRow, panel.getWidth(), panel.getHeight(), 10);
+            Circle[i].updateBounds(colAndRow, colAndRow, panel.getWidth(), panel.getHeight(), 0);
         }
 
         JFileChooser fileChooser = new JFileChooser();                  //file selector
@@ -106,7 +106,7 @@ public class MusicVisualiser
 
                 */
                 for (int i = 0; i < circleTotal; i++) {
-                    Circle[i].dynamicCircle(buffer);
+                    Circle[i].dynamicBounds(buffer);
 
                 }
                 speakers.write(buffer, 0, readBuffer);

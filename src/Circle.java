@@ -8,7 +8,7 @@ public class Circle extends JComponent
 {
     public int row, col;
     int ID = 0;
-    int x, y;
+    int cellWidth, cellHeight;
     public int radius;
     public Color color;
     public static int circleAmount = 0;
@@ -23,8 +23,8 @@ public class Circle extends JComponent
     }
 
     public void updateBounds(int totalRows, int totalCols, int panelWidth, int panelHeight, int padding) {
-        int cellWidth = panelWidth / totalCols;
-        int cellHeight = panelHeight / totalRows;
+        this.cellWidth = panelWidth / totalCols;
+        this.cellHeight = panelHeight / totalRows;
 
         int radius = Math.min(cellWidth, cellHeight) / 2 - padding;
         radius = Math.max(radius, 1);
@@ -32,8 +32,8 @@ public class Circle extends JComponent
         int centerX = col * cellWidth + cellWidth / 2;
         int centerY = row * cellHeight + cellHeight / 2;
 
-        this.x = centerX - radius;
-        this.y = centerY - radius;
+        int x = centerX - radius;
+        int y = centerY - radius;
         int diameter = radius * 2;
 
         setBounds(x, y, diameter, diameter);
@@ -50,7 +50,7 @@ public class Circle extends JComponent
         g2.dispose();
     }
 
-    void dynamicCircle(byte[] input)
+  /*  void dynamicCircle(byte[] input)
     {
         int bufferLength = input.length / circleAmount;
         int sum = 0;
@@ -59,6 +59,33 @@ public class Circle extends JComponent
             sum += input[i];
         }
         int diameter = (sum - (bufferLength * -128)) * (286 - 0) / ((bufferLength * 127) - (bufferLength * -128)) + 0;
+        setBounds(x, y, diameter, diameter);
+        repaint();
+    }
+
+
+   */
+    public void dynamicBounds(byte[] input) {
+        int bufferLength = input.length / circleAmount;
+        int sum = 0;
+
+
+        for (int i = (this.ID - 1) * bufferLength; i < this.ID * bufferLength; i++){
+            sum += input[i];
+        }
+
+        int padding = (int)((sum - (bufferLength * -128)) * (19 - ((double)(5000/circleAmount))) / ((bufferLength * 127) - (bufferLength * -128)) + ((double)(5000/circleAmount)));
+
+        int radius = Math.min(cellWidth, cellHeight) / 2 - padding;
+        radius = Math.max(radius, 1);
+
+        int centerX = col * cellWidth + cellWidth / 2;
+        int centerY = row * cellHeight + cellHeight / 2;
+
+        int x = centerX - radius;
+        int y = centerY - radius;
+        int diameter = radius * 2;
+
         setBounds(x, y, diameter, diameter);
         repaint();
     }
